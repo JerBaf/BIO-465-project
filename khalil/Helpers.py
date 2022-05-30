@@ -157,7 +157,7 @@ def plot_data(state_monitor, title=""):
     plot_nb = 5
     if "p" in states.keys():
         plot_nb += 1
-    fig, axs = plt.subplots(plot_nb,1,figsize=(16,4*plot_nb))
+    fig, axs = plt.subplots(plot_nb,1,figsize=(16,4*plot_nb),constrained_layout=True)
     i = 0
 
     axs[i].plot(state_monitor.t / b2.ms, state_monitor.vm[0] / b2.mV, lw=2)
@@ -249,10 +249,11 @@ def plot_data(state_monitor, title=""):
     axs[i].set_title("Input current")
     axs[i].grid()
 
-
-    fig.suptitle(title,fontsize="x-large")
-    fig.tight_layout()
+    #mid = (fig.subplotpars.right + fig.subplotpars.left)/2
+    #fig.suptitle(title,fontsize="x-large",x=mid)
+    #fig.tight_layout()
     plt.show()
+    return fig
 
 def extract_spike_timings(state_monitor):
     states = state_monitor.get_states()
@@ -285,6 +286,7 @@ def plot_adaptive_behaviour(state_monitor):
     ax.set_title("Adaptive Behaviour",fontsize="x-large")
     ax.plot(adaptive_behaviour)
     plt.show()
+    return fig
 
 def plot_three_adaptive_behaviours(state_monitors):
     fig,ax = plt.subplots(figsize=(16,9))
